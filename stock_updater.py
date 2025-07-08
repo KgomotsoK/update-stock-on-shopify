@@ -4,7 +4,7 @@ import os
 import requests
 import json
 import pandas as pd
-from ftplib import FTP_TLS
+from ftplib import FTP
 import io
 from dotenv import load_dotenv
 
@@ -16,8 +16,6 @@ API_VERSION = os.getenv("API_VERSION")
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
 SHOPIFY_URL = f"https://{SHOP_NAME}.myshopify.com/admin/api/{API_VERSION}/graphql.json"
 
-session = requests.Session()
-session.verify = '/etc/ssl/certs/ca-certificates.crt'
 
 # Configure logging
 logging.basicConfig(
@@ -36,9 +34,8 @@ FTP_FILE_PATH = os.getenv("FTP_FILE_PATH")
 def download_excel_from_ftp():
     """Download Excel file from FTP and load into DataFrame"""
     try:
-        ftp = FTP_TLS(FTP_HOST)
+        ftp = FTP(FTP_HOST)
         ftp.login(user=FTP_USER, passwd=FTP_PASS)
-        ftp.prot_p()  # Switch to secure data connection
         with io.BytesIO() as file_buffer:
             ftp.retrbinary(f"RETR {FTP_FILE_PATH}", file_buffer.write)
             file_buffer.seek(0)
@@ -93,7 +90,7 @@ def update_shopify_inventory(items):
         """
         
         # Get variant and inventory item IDs
-        variant_response = session.post(
+        variant_response = requests.post(
             SHOPIFY_URL,
             headers=headers,
             json={
