@@ -1,0 +1,1 @@
+worker: python inventory_updater.py
