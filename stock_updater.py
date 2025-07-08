@@ -149,7 +149,7 @@ def update_shopify_inventory(items):
             print(f"Failed to update SKU {item['sku']}: {update_response.text}")
 
 def check_environment():
-    required_vars = ['SHOPIFY_SHOP_NAME', 'SHOPIFY_ACCESS_TOKEN', 'FTP_PASS']
+    required_vars = ['SHOP_NAME', 'ACCESS_TOKEN', 'FTP_PASS']
     missing = [var for var in required_vars if not os.getenv(var)]
     if missing:
         logger.critical(f"Missing environment variables: {', '.join(missing)}")
