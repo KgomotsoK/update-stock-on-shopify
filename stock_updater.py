@@ -145,15 +145,16 @@ def update_shopify_inventory(items):
         else:
             print(f"Failed to update SKU {item['sku']}: {update_response.text}")
 
-def check_environment():
+'''def check_environment():
     required_vars = ['SHOP_NAME', 'ACCESS_TOKEN', 'FTP_PASS']
     missing = [var for var in required_vars if not os.getenv(var)]
+    print(f"Missing environment variables: {', '.join(missing)}")
     if missing:
         logger.critical(f"Missing environment variables: {', '.join(missing)}")
         raise EnvironmentError("Missing required configuration")
-    
+'''    
 def main():
-    check_environment()
+    #check_environment()
     # 1. Download Excel from FTP
     logger.info("Downloading inventory file from FTP...")
     excel_data = download_excel_from_ftp()
