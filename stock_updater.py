@@ -212,7 +212,7 @@ store_index = 1
 while True:
     shop_name = os.getenv(f"SHOP_NAME_{store_index}")
     access_token = os.getenv(f"ACCESS_TOKEN_{store_index}")
-    api_version = os.getenv(f"API_VERSION_{store_index}", "2025-07")  # Default API version
+    api_version = os.getenv(f"API_VERSION", "2025-07")  # Default API version
     
     if not shop_name or not access_token:
         break
